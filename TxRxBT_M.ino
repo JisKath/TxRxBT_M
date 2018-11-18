@@ -1,20 +1,27 @@
 /* -------------------------------------------------------- */
 /* Codigo Para trabajar con el modulo Bluetooth RN-41 */
+
+/* Codigo Para trabajar con el modulo WiFi ESP-01 */
 /* -------------------------------------------------------- */
 
 
 #include <SpecialFunctions.h>
 #include <BT_Net.h>
-#include <SoftwareSerial.h>   		// Incluimos la librería  SoftwareSerial  
+#include <SoftwareSerial.h>
 #include <EEPROM.h>
 
-//#include <nRF24L01.h>
-//#include <RF24.h>
+#include <doxygen.h>
+#include <ESP8266.h>
+#define wifiWrite(A) wifi.send(mux_id, (uint8_t*) A, sizeof(A) - 1);
+
+#include <nRF24L01.h>
+#include <RF24.h>
 //#include <RF24_config.h>
 //#include <SPI.h>
 #include <SPI.h>
-#include "nRF24L01.h"
-#include "RF24.h"
+//#include "nRF24L01.h"
+//#include "RF24.h"
+
 
 
 int BT_On=8;
@@ -28,81 +35,59 @@ String ucSerial;
 String btSerial;
 String TempucSerial;
 
-SpecialFn timer2, timer3;
+SpecialFn blinkOn, blinkOff;
 BT_Network disp;
 
+ESP8266 wifi(Serial2);								// Creamos un objeto radio del tipo wifi
+String wifiData="";
+
 String msg;
-String RadioWriteTemp;                  // Array a transmitir
-RF24 radio(9,53);                        // Creamos un objeto radio del tipo RF2$
+String RadioWriteTemp;                  			// Array a transmitir
+RF24 radio(9,53);									// Creamos un objeto radio del tipo RF24
 
 #include "BTUCCmds.h"
 #include "RadioComm_Rev1.h" 
+#include "Setups.h" 
+#include "wifiCmds.h" 
 
 void setup()
 {
-	delay(2000);
-	pinMode(13, OUTPUT);
-	pinMode(BT_On, OUTPUT);			// configurar pin para alimentacion modulo BT 
-	pinMode(AT_Mode, OUTPUT);		// configurar pin para habilitacion de modo AT 2
-
-	digitalWrite(AT_Mode, LOW);
-	digitalWrite(BT_On, LOW);
+	Serial.begin(115200);   						// Iniciar  el puerto serie
 	
-	Serial.begin(115200);   			// Iniciar  el puerto serie
-	Serial.println("Levantando el modulo Bluetooth");
-
-	digitalWrite(BT_On, HIGH);
-	delay(1500);
-	
-	digitalWrite(AT_Mode, HIGH);	
-	delay(500);
-	digitalWrite(AT_Mode, LOW);
-	
-	
-	Serial.println("Esperando comandos AT:");	
-	Serial1.begin(115200);       			// Iniciar el puerto serie BT
-
-	Serial1.println("AT+NAME=BT_Master");
-	
-	Serial.println("enviando EEPROM a SRAM");	//Inicializando memoria
+	Serial.println("enviando EEPROM a SRAM");		//Inicializando memoria
 	disp.reeprom();
 	Serial.println("EEPROM ---> SRAM");
 	
-	pinMode(53, OUTPUT);
-	radio.begin();
-	Serial.println("Levantando el modulo de radio NRF");
-
-	radio.setDataRate(RF24_250KBPS);
-	radio.setChannel(30);
-	radio.setPALevel(3);
-	radio.setRetries(15,15);  	// Maximos reintentos 
-	radio.setPayloadSize(16);   // Reduce el payload de 32 si tienes problemas
-	radio.openWritingPipe(selectPipe(disp.Dispositivo[0].direccion));          // Abrir para escribir
+	btSetup();										//Inicializando Bluetooth
+	nrf24Setup();									//Inicializando NRF24
+	wifiSetup();									//Inicializando ESP-01
 	
-	timer2.TON.pre=100;
-	timer3.TON.pre=100;
-	timer2.TON.en=0;
-	timer3.TON.en=0;
-	}
+	blinkOn.TON.pre=100;							//Inicilizando Timers
+	blinkOff.TON.pre=100;
+	blinkOn.TON.en=0;
+	blinkOff.TON.en=0;
+  	}
 	
 void loop()
 {
 
-	timer3.init();
-	timer2.init();	
-	timer2.TON.en=1;	
+	blinkOff.init();
+	blinkOn.init();	
+	blinkOn.TON.en=1;
 
-	if(timer2.TON.tt)
+    
+
+	if(blinkOn.TON.tt)
 		digitalWrite(13, HIGH);
 
-	if(timer2.TON.dn)
+	if(blinkOn.TON.dn)
 		{
 		digitalWrite(13, LOW);
-		timer3.TON.en=1;
-		if (timer3.TON.dn)
+		blinkOff.TON.en=1;
+		if (blinkOff.TON.dn)
 			{
-			timer2.TON.en=0;
-			timer3.TON.en=0;
+			blinkOn.TON.en=0;
+			blinkOff.TON.en=0;
 			}
 		}
 		
@@ -115,6 +100,7 @@ void serialEvent(void)
   if (Serial.available())
 	{
 	ucSerial=Serial.readString();
+
 	ChkCMD();
 
 	}
@@ -122,6 +108,8 @@ void serialEvent(void)
 
 void serialEvent1(void)
   {
+
+
   if (Serial1.available())
 	{
 	btSerial=Serial1.readString();
@@ -134,6 +122,12 @@ void serialEvent1(void)
 	
 	else
 	ChkCMDbt();
+
 	}
   }
 
+  void serialEvent2(void)
+  {
+  wifiRecibir(void)
+  
+  }
