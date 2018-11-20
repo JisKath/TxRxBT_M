@@ -16,13 +16,11 @@
 
 #include <nRF24L01.h>
 #include <RF24.h>
-//#include <RF24_config.h>
-//#include <SPI.h>
 #include <SPI.h>
-//#include "nRF24L01.h"
-//#include "RF24.h"
 
 
+const char* SSID = "INFINITUM123C7F";
+const char* PASSWORD = "01CE109E73";
 
 int BT_On=8;
 int AT_Mode=9;
@@ -128,6 +126,6 @@ void serialEvent1(void)
 
   void serialEvent2(void)
   {
-  wifiRecibir(void)
+  wifiRecibir();
   
   }
