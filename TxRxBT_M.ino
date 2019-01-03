@@ -12,7 +12,7 @@
 
 #include <doxygen.h>
 #include <ESP8266.h>
-#define wifiWrite(A) wifi.send(mux_id, (uint8_t*) A, sizeof(A) - 1);
+//#define wifiWrite(A) wifi.send(mux_id, (uint8_t*) A, sizeof(A) - 1);
 
 #include <nRF24L01.h>
 #include <RF24.h>
@@ -24,6 +24,8 @@ const char* PASSWORD = "01CE109E73";
 
 int BT_On=8;
 int AT_Mode=9;
+
+int fuenteCMD;
 
 
 int cmdOk=0;		
@@ -38,6 +40,7 @@ BT_Network disp;
 
 ESP8266 wifi(Serial2);								// Creamos un objeto radio del tipo wifi
 String wifiData="";
+   uint8_t mux_id;
 
 String msg;
 String RadioWriteTemp;                  			// Array a transmitir
@@ -46,7 +49,8 @@ RF24 radio(9,53);									// Creamos un objeto radio del tipo RF24
 #include "BTUCCmds.h"
 #include "RadioComm_Rev1.h" 
 #include "Setups.h" 
-#include "wifiCmds.h" 
+#include "wifiCmds.h"
+#include "PaginaHTML.h" 
 
 void setup()
 {
@@ -65,7 +69,8 @@ void setup()
 	blinkOn.TON.en=0;
 	blinkOff.TON.en=0;
   	}
-	
+
+//#define wifiWrite(A) wifi.send(mux_id, (uint8_t*) A, sizeof(A) - 1);
 void loop()
 {
 
@@ -90,11 +95,19 @@ void loop()
 		}
 		
 	Duplex2Radio(TXradioEn);
+	
+	if(fuenteCMD==13){
+
+	htmlPagina();
+    Serial.println("ehhh");   
+		fuenteCMD=3;
+    }
 
 }
 
 void serialEvent(void)
   {
+  fuenteCMD=1;
   if (Serial.available())
 	{
 	ucSerial=Serial.readString();
@@ -106,7 +119,8 @@ void serialEvent(void)
 
 void serialEvent1(void)
   {
-
+  
+  fuenteCMD=2;
 
   if (Serial1.available())
 	{
@@ -127,5 +141,8 @@ void serialEvent1(void)
   void serialEvent2(void)
   {
   wifiRecibir();
-  
+  ChkCMDwf();
+  wifiData="";
+  fuenteCMD=3;
+
   }

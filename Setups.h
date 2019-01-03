@@ -2,11 +2,13 @@
 
 void wifiSetup(void)
 {
-   Serial.begin(115200);
-   Serial.print("setup begin\r\n");
+   Serial.print("WiFI setup begin\r\n");
    
    wifi.restart();
    delay(500);
+   
+    Serial.print("FW Version:");
+    Serial.println(wifi.getVersion().c_str());
  
    if (wifi.setOprToStationSoftAP()) {
       Serial.print("to station + softap ok\r\n");
@@ -38,14 +40,14 @@ void wifiSetup(void)
       Serial.print("start tcp server err\r\n");
    }
  
-   if (wifi.setTCPServerTimeout(10)) {
-      Serial.print("set tcp server timout 10 seconds\r\n");
+   if (wifi.setTCPServerTimeout(30)) {
+      Serial.print("set tcp server timout 30 seconds\r\n");
    }
    else {
       Serial.print("set tcp server timout err\r\n");
    }
  
-   Serial.println("setup end\r\n");
+   Serial.println("WiFi setup end\r\n");
 
 }
 

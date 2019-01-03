@@ -49,8 +49,22 @@ void Duplex2Radio(int Enable)
 		radio.openWritingPipe(selectPipe(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion));
 		delay(10);
 		
-		Serial1.print("Enviando  ");
-		Serial1.println(RadioWriteTemp);
+		if(fuenteCMD==1){
+			Serial.print("Enviando  ");
+			Serial.println(RadioWriteTemp);
+		}
+		
+		if(fuenteCMD==2){
+			Serial1.print("Enviando  ");
+			Serial1.println(RadioWriteTemp);
+		}
+		
+		if(fuenteCMD==3){
+			Serial.print("Enviando  ");
+			Serial.println(RadioWriteTemp);
+			//htmlPagina("Enviando  ");
+			//htmlPagina((char&) RadioWriteTemp);
+		}
 		
 		bool ok = false;
 		int TXattempts=0;
@@ -61,14 +75,42 @@ void Duplex2Radio(int Enable)
 			++TXattempts;
 		}
 		
-    Serial1.print("Intentos: ");
-    Serial1.println(TXattempts);
+		if(fuenteCMD==1){
+			Serial.print("Intentos: ");
+			Serial.println(TXattempts);
+		}
+		
+		if(fuenteCMD==2){
+			Serial1.print("Intentos: ");
+			Serial1.println(TXattempts);
+		}
+		
+		if(fuenteCMD==3){
+			Serial.print("Intentos: ");
+			Serial.println(TXattempts);
+		}
 	
-		if (ok)
-			Serial1.println("ok...");
-		else
-			Serial1.println("Falla al transmitir");
+		if (ok){
+			if(fuenteCMD==1)
+				Serial.println("ok...");
 
+			if(fuenteCMD==2)
+				Serial1.println("ok...");
+			
+			if(fuenteCMD==3)
+				Serial.println("ok...");
+		}
+		
+		else{
+			if(fuenteCMD==1)
+				Serial.println("Falla al transmitir");
+			
+			if(fuenteCMD==2)
+				Serial1.println("Falla al transmitir");
+			
+			if(fuenteCMD==3)
+				Serial.println("Falla al transmitir");
+		}
 		radio.startListening();  	//Volvemos a la escucha
 		radio.openReadingPipe(1,selectPipe(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion)+1);
 		
@@ -77,16 +119,43 @@ void Duplex2Radio(int Enable)
 		while ( ! radio.available() && ! timeout )  // Esperasmos repsuesta hasta 200ms
 			if (millis() - started_waiting_at > 300 )timeout = true;
 		
-		if ( timeout )
-			 Serial1.println("Falla en el tiempo de respuesta");
+		if ( timeout ){
+				if(fuenteCMD==1)
+					Serial.println("Falla en el tiempo de respuesta");
+				
+				if(fuenteCMD==2)
+					Serial1.println("Falla en el tiempo de respuesta");
+				
+				if(fuenteCMD==3)
+					Serial.println("Falla en el tiempo de respuesta");
+			}
 		else
-		  { // Leemos el mensaje recibido
+		{ // Leemos el mensaje recibido
+			if(fuenteCMD==1){
+				Serial.print("Resp del Dispositivo: ");
+				Serial.println(RadioRead());
+			}
 
-			Serial1.print("Resp del Dispositivo: ");
-			Serial1.println(RadioRead());
-			//Serial1.print(";");
-		  }
-		Serial1.print(";");
+			if(fuenteCMD==2){
+				Serial1.print("Resp del Dispositivo: ");
+				Serial1.println(RadioRead());
+			}
+			
+			if(fuenteCMD==3){
+        fuenteCMD=13;
+				Serial.print("Resp del Dispositivo: ");
+				Serial.println(RadioRead());
+			}
+		}
+		
+		if(fuenteCMD==1)
+			Serial.print(";");
+		
+		if(fuenteCMD==2)
+			Serial1.print(";");
+		
+		if(fuenteCMD==3)
+			Serial.print(";");
 		delay(25);
 		
 		radio.stopListening();
@@ -95,4 +164,7 @@ void Duplex2Radio(int Enable)
 	}
 	
 }
+
+
+
 
