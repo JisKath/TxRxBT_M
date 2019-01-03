@@ -40,6 +40,7 @@ BT_Network disp;
 
 ESP8266 wifi(Serial2);								// Creamos un objeto radio del tipo wifi
 String wifiData="";
+String wifiCmd2Snd="",wifiString2Snd="";
    uint8_t mux_id;
 
 String msg;

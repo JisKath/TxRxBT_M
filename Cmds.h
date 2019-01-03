@@ -4,67 +4,70 @@ if(wifiData.substring(0,1) == "_")
 {
 		
 	cmdOk=0;
+	wifiCmd2Snd=wifiData;
 
 	if(wifiData.substring(0,6) == "_btoff")						//Comando para apagar modulo HC-05
 	{	
 		digitalWrite(BT_On, LOW);
-		Serial.println("Bluetooth Apagado;");
+		wifiString2Snd="Bluetooth Apagado;";
 		cmdOk=1;
+		fuenteCMD=13;
 	}
 
 	if(wifiData.substring(0,5) == "_bton")						//Comando para encender modulo HC-05
 	{
 		digitalWrite(BT_On, HIGH);
-		Serial.println("Bluetooth Encendido;");
+		wifiString2Snd="Bluetooth Encendido;";
 		cmdOk=1;
 	}
 
 	if(wifiData.substring(0,5) == "_aton")						//Comando para encender Pin 34 en HC-05
 	{
 		digitalWrite(AT_Mode, HIGH);
-		Serial.println("Modo AT1 activo PIN 34;");
+		wifiString2Snd="Modo AT1 activo PIN 34;";
 		cmdOk=1;
 	}
 
 	if(wifiData.substring(0,6) == "_atoff")						//Comando para apagar Pin 34 en HC-05
 	{
 		digitalWrite(AT_Mode, LOW);
-		Serial.println("Modo AT1 apagado;");
+		wifiString2Snd="Modo AT1 apagado;";
 		cmdOk=1;
 	}
 
 	if(wifiData.substring(0,4) == "_wn[")
 	{
 		disp.wn(wifiData.substring(4).toInt(),wifiData.substring(wifiData.lastIndexOf(',')+1,wifiData.lastIndexOf(']')));
-		Serial.println("_wn OK;");
+		wifiString2Snd="_wn OK;";
 		cmdOk=1;
 	}
 		
 	if(wifiData.substring(0,4) == "_rn[")
 	{
-		Serial.println(String(disp.Dispositivo[wifiData.substring(4).toInt()].nombre));
-		Serial.println("_rn OK;");
+		wifiString2Snd=String(disp.Dispositivo[wifiData.substring(4).toInt()].nombre);
+		wifiString2Snd=wifiString2Snd+" _rn OK;";
 		cmdOk=1;
+		fuenteCMD=13;
 	}
 
 
 	if(wifiData.substring(0,4) == "_wd[")
 	{
 		disp.wd(wifiData.substring(4).toInt(),wifiData.substring(wifiData.indexOf(',')+1,wifiData.lastIndexOf(']')));
-		Serial.println("_wd OK;");
+		wifiString2Snd="_wd OK;";
 		cmdOk=1;
 	}
 
 	if(wifiData.substring(0,4) == "_rd[")
 	{
-		Serial.println(String(disp.Dispositivo[wifiData.substring(4).toInt()].direccion));
-		Serial.print("_rd OK;");
+		wifiString2Snd=String(disp.Dispositivo[wifiData.substring(4).toInt()].direccion);
+		wifiString2Snd=wifiString2Snd+" _rd OK;";
 		cmdOk=1;
 	}
 
 	if(wifiData.substring(0,4) == "_rt[")
 	{
-		Serial.print("_rt OK;");
+		wifiString2Snd="_rt OK;";
 		cmdOk=1;
 	}
 	
@@ -87,17 +90,17 @@ if(wifiData.substring(0,1) == "_")
 
 	if(wifiData.substring(0,8) == "_weeprom")
 	{
-		Serial.println("enviando SRAM --> EEPROM");
+		wifiString2Snd="enviando SRAM --> EEPROM";
 		disp.weeprom();
-		Serial.println("SRAM --> EEPROM enviado;");
+		wifiString2Snd=wifiString2Snd+" SRAM --> EEPROM enviado;";
 		cmdOk=1;
 	}
 
 	if(wifiData.substring(0,8) == "_reeprom")
 	{
-		Serial.println("enviando EEPROM --> SRAM");
+		wifiString2Snd="enviando EEPROM --> SRAM";
 		disp.reeprom();
-		Serial.println("EEPROM ---> SRAM enviado;");
+		wifiString2Snd=wifiString2Snd+"EEPROM ---> SRAM enviado;";
 		cmdOk=1;
 	}
 
@@ -135,7 +138,7 @@ if(wifiData.substring(0,1) == "_")
 	}
 	
 	if (cmdOk==0)
-		Serial.println("Comando no identificado;");
+		wifiString2Snd="Comando no identificado;";
 
 
 }
