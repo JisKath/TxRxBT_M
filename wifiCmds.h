@@ -17,7 +17,7 @@ void wifiRecibir(void)
 			wifiData=wifiData+(char)buffer[i];
 		}
 
-		if(wifiData.length()>10){
+		if(wifiData.length()>20){
 			wifiData=(wifiData.substring(wifiData.indexOf("GET /")+5,wifiData.indexOf("HTTP")));
 		}
 		
@@ -28,4 +28,15 @@ void wifiRecibir(void)
 		Serial.println("______________________________________________");
 
 	}
+}
+
+void wifiEnviarln(String data)
+{
+	data=data+"\r\n";
+	wifi.sends(mux_id, data,data.length());	
+}
+
+void wifiEnviar(String data)
+{
+	wifi.sends(mux_id, data,data.length());	
 }

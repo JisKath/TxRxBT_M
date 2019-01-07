@@ -44,8 +44,8 @@ if(wifiData.substring(0,1) == "_")
 		
 	if(wifiData.substring(0,4) == "_rn[")
 	{
-		wifiString2Snd=String(disp.Dispositivo[wifiData.substring(4).toInt()].nombre);
-		wifiString2Snd=wifiString2Snd+" _rn OK;";
+		wifiEnviar(String(disp.Dispositivo[wifiData.substring(4).toInt()].nombre));
+		wifiEnviar(" _rn OK;");
 		cmdOk=1;
 		fuenteCMD=13;
 	}

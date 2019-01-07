@@ -47,10 +47,10 @@ String msg;
 String RadioWriteTemp;                  			// Array a transmitir
 RF24 radio(9,53);									// Creamos un objeto radio del tipo RF24
 
+#include "wifiCmds.h"
 #include "BTUCCmds.h"
 #include "RadioComm_Rev1.h" 
 #include "Setups.h" 
-#include "wifiCmds.h"
 #include "PaginaHTML.h" 
 
 void setup()
@@ -97,10 +97,10 @@ void loop()
 		
 	Duplex2Radio(TXradioEn);
 	
-	if(fuenteCMD==13){
-
-	htmlPagina();
-    Serial.println("ehhh");   
+	if(fuenteCMD==13)
+	{
+	//htmlPagina();
+    //Serial.println("ehhh");   
 		fuenteCMD=3;
     }
 
