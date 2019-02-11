@@ -49,9 +49,9 @@ RF24 radio(9,53);									// Creamos un objeto radio del tipo RF24
 
 #include "wifiCmds.h"
 #include "BTUCCmds.h"
+#include "PaginaHTML.h" 
 #include "RadioComm_Rev1.h" 
 #include "Setups.h" 
-#include "PaginaHTML.h" 
 
 void setup()
 {

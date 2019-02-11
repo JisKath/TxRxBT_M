@@ -7,7 +7,10 @@ uint64_t selectPipe(String _pipe)
 
 String RadioRead(void)
 {
-  String Mensaje="";
+  String Mensaje;
+  Mensaje.reserve(16);
+  Mensaje.remove(0, 15);
+    
   bool a=false;
   int z=0;
   
@@ -17,8 +20,11 @@ String RadioRead(void)
 	a=radio.read( MSG,15);
 
 
-  for (int i = 0; i < 15; i++) 
+  for (int i = 0; i < 15; i++){
     Mensaje.concat(MSG[i]);
+    if(MSG[i]==';')
+      i=15;
+  }
 
   return (Mensaje);
 }
@@ -141,9 +147,10 @@ void Duplex2Radio(int Enable)
 			}
 			
 			if(fuenteCMD==3){
-        fuenteCMD=13;
 				wifiEnviar("Resp del Dispositivo: ");
-				wifiEnviarln(RadioRead());
+        wifiEnviarln(RadioRead());
+        //wifiEnviarln("hola");
+				fuenteCMD=0;
 			}
 		}
 		
@@ -155,6 +162,7 @@ void Duplex2Radio(int Enable)
 		
 		if(fuenteCMD==3)
 			wifiEnviarln(";");
+      
 		delay(25);
 		
 		radio.stopListening();

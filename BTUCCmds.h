@@ -109,7 +109,16 @@ if(ucSerial.substring(0,1) == "_")
 		cmdOk=1;
     TXradioEn=1;
 	}
-	
+
+  if(ucSerial.substring(0,6) == "_rcvn[") //rcvn[0]
+  {
+    RadioWriteTemp=ucSerial;
+    //Serial1.println("_rcvn enviando");
+
+    cmdOk=1;
+    TXradioEn=1;
+  }
+  
 	
 	if (cmdOk==0)
 		Serial.println("Comando no identificado");

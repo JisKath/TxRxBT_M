@@ -32,11 +32,12 @@ void wifiRecibir(void)
 
 void wifiEnviarln(String data)
 {
-	data=data+"\r\n";
-	wifi.sends(mux_id, data,data.length());	
+	data.concat("\r\n");
+	wifi.sends(mux_id, data, data.length());
+  //wifi.sends(mux_id, "Hola", 4);
 }
 
 void wifiEnviar(String data)
 {
-	wifi.sends(mux_id, data,data.length());	
+	wifi.sends(mux_id, data, data.length());	
 }

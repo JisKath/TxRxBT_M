@@ -40,7 +40,7 @@ void wifiSetup(void)
       Serial.print("start tcp server err\r\n");
    }
  
-   if (wifi.setTCPServerTimeout(30)) {
+   if (wifi.setTCPServerTimeout(90)) {
       Serial.print("set tcp server timout 30 seconds\r\n");
    }
    else {
