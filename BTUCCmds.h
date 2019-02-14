@@ -416,6 +416,13 @@ if(wifiData.substring(0,1) == "_")
 		TXradioEn=1;
 	}
 	
+	if(wifiData.substring(0,6) == "_testw") //Verifica Comunicacion WiFi
+	{
+		wifiEnviarln("Ok...;");
+
+		cmdOk=1;
+	}
+	
 	if (cmdOk==0)
 		wifiEnviarln("Comando no identificado;");
 

@@ -121,7 +121,7 @@ void Duplex2Radio(int Enable)
 		
 		unsigned long started_waiting_at = millis();
 		bool timeout = false;
-		while ( ! radio.available() && ! timeout )  // Esperasmos repsuesta hasta 200ms
+		while ( ! radio.available() && ! timeout )  // Esperasmos repsuesta hasta 300ms
 			if (millis() - started_waiting_at > 300 )timeout = true;
 		
 		if ( timeout ){
