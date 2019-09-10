@@ -10,7 +10,7 @@ String RadioRead(void)
   String Mensaje;
   Mensaje.reserve(16);
   Mensaje.remove(0, 15);
-    
+  
   bool a=false;
   int z=0;
   
@@ -72,9 +72,9 @@ void Duplex2Radio(int Enable)
 		
 		bool ok = false;
 		int TXattempts=0;
-		while(!ok && TXattempts<10)
+		while(!ok && TXattempts<5)
 		{
-			delay(75);
+			delay(100);
 			ok = RadioWrite(RadioWriteTemp);
 			++TXattempts;
 		}
@@ -121,9 +121,10 @@ void Duplex2Radio(int Enable)
 		
 		unsigned long started_waiting_at = millis();
 		bool timeout = false;
-		while ( ! radio.available() && ! timeout )  // Esperasmos repsuesta hasta 300ms
-			if (millis() - started_waiting_at > 300 )timeout = true;
-		
+		while ( ! radio.available() && ! timeout ){  // Esperasmos repsuesta hasta 500ms
+			delay(5);
+			if (millis() - started_waiting_at > 500 )timeout = true;
+		}
 		if ( timeout ){
 				if(fuenteCMD==1)
 					Serial.println("Falla en el tiempo de respuesta");
