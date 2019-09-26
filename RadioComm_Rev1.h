@@ -75,7 +75,7 @@ void Duplex2Radio(int Enable)
 		while(!ok && TXattempts<5)
 		{
 			delay(100);
-			ok = RadioWrite(RadioWriteTemp);
+			ok = RadioWrite(RadioWriteTemp);			//Agregar condición if cuando Ok es true, para no duplicar acción
 			++TXattempts;
 		}
 		
@@ -117,7 +117,7 @@ void Duplex2Radio(int Enable)
 		}
 		
 		radio.startListening();  	//Volvemos a la escucha
-		radio.openReadingPipe(1,selectPipe(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion)+1);
+		radio.openReadingPipe(1,selectPipe(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion)+1); //Cambiar el canal de la escucha por otro i.e. "CANAL" --> "LANAC"
 		
 		unsigned long started_waiting_at = millis();
 		bool timeout = false;
