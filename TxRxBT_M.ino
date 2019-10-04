@@ -35,7 +35,7 @@ String ucSerial;
 String btSerial;
 String TempucSerial;
 
-SpecialFn blinkOn, blinkOff;
+SpecialFn blinkOn, blinkOff, wifiSta;
 BT_Network disp;
 
 ESP8266 wifi(Serial2);								// Creamos un objeto radio del tipo wifi
@@ -67,19 +67,37 @@ void setup()
 	
 	blinkOn.TON.pre=100;							//Inicilizando Timers
 	blinkOff.TON.pre=100;
+	wifiSta.TON.pre=60000;
 	blinkOn.TON.en=0;
 	blinkOff.TON.en=0;
+	wifiSta.TON.en=0;
   	}
 
+   
 //#define wifiWrite(A) wifi.send(mux_id, (uint8_t*) A, sizeof(A) - 1);
 void loop()
 {
 
 	blinkOff.init();
-	blinkOn.init();	
+	blinkOn.init();
+	wifiSta.init();	
 	blinkOn.TON.en=1;
+	wifiSta.TON.en=1;
 
-    
+    if(wifiSta.TON.dn){
+		wifiSta.TON.en=0;
+    Serial.println(wifi.getLocalIP().length());
+		Serial.println("Validando wifi");
+			if(wifi.getLocalIP().length()<120){
+				Serial.println("wifi NOK");
+				wifiSetup();
+				wifiSta.TON.pre=10000;
+				}
+			else{
+				wifiSta.TON.pre=60000;
+				Serial.println("wifi OK");
+			}
+		}
 
 	if(blinkOn.TON.tt)
 		digitalWrite(13, HIGH);
@@ -146,5 +164,7 @@ void serialEvent1(void)
   ChkCMDwf();
   wifiData="";
   fuenteCMD=3;
+  wifiSta.TON.en=0;
+
 
   }
