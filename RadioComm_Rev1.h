@@ -72,11 +72,11 @@ void Duplex2Radio(int Enable)
 		
 		bool ok = false;
 		int TXattempts=0;
-		while(!ok && TXattempts<5)
+		while(!ok && TXattempts<3)
 		{
-			delay(100);
 			ok = RadioWrite(RadioWriteTemp);			//Agregar condición if cuando Ok es true, para no duplicar acción
 			++TXattempts;
+			delay(100);
 		}
 		
 		if(fuenteCMD==1){
@@ -119,40 +119,33 @@ void Duplex2Radio(int Enable)
 		radio.startListening();  	//Volvemos a la escucha
 		radio.openReadingPipe(1,selectPipe(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion)+1); //Cambiar el canal de la escucha por otro i.e. "CANAL" --> "LANAC"
 		
-		unsigned long started_waiting_at = millis();
-		bool timeout = false;
-		while ( ! radio.available() && ! timeout ){  // Esperasmos repsuesta hasta 500ms
-			delay(5);
-			if (millis() - started_waiting_at > 500 )timeout = true;
-		}
-		if ( timeout ){
-				if(fuenteCMD==1)
-					Serial.println("Falla en el tiempo de respuesta");
-				
-				if(fuenteCMD==2)
-					Serial1.println("Falla en el tiempo de respuesta");
-				
-				if(fuenteCMD==3)
-					wifiEnviarln("Falla en el tiempo de respuesta");
-			}
-		else
-		{ // Leemos el mensaje recibido
-			if(fuenteCMD==1){
-				Serial.print("Resp del Dispositivo: ");
-				Serial.println(RadioRead());
-			}
+		//radio.stopListening();
+		cmdOk=0;
+		TXradioEn=0;
+		
+	}
+	
+}
 
-			if(fuenteCMD==2){
-				Serial1.print("Resp del Dispositivo: ");
-				Serial1.println(RadioRead());
-			}
+void Escuchando(void){
+	
+	if(radio.available()){
+	
+		if(fuenteCMD==1){
+			Serial.print("Resp del Dispositivo: ");
+			Serial.println(RadioRead());
+		}
+
+		if(fuenteCMD==2){
+			Serial1.print("Resp del Dispositivo: ");
+			Serial1.println(RadioRead());
+		}
 			
-			if(fuenteCMD==3){
-				wifiEnviar("Resp del Dispositivo: ");
-        wifiEnviarln(RadioRead());
-        //wifiEnviarln("hola");
-				fuenteCMD=0;
-			}
+		if(fuenteCMD==3){
+			wifiEnviar("Resp del Dispositivo: ");
+			wifiEnviarln(RadioRead());
+			//wifiEnviarln("hola");
+			//fuenteCMD=0;
 		}
 		
 		if(fuenteCMD==1)
@@ -166,13 +159,9 @@ void Duplex2Radio(int Enable)
       
 		delay(25);
 		
-		radio.stopListening();
-		cmdOk=0;
-		TXradioEn=0;		
 	}
 	
 }
-
 
 
 

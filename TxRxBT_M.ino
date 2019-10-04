@@ -96,6 +96,7 @@ void loop()
 		}
 		
 	Duplex2Radio(TXradioEn);
+	Escuchando();
 	
 	if(fuenteCMD==13)
 	{
