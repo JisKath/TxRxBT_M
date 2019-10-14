@@ -22,8 +22,8 @@
 const char* SSID = "INFINITUM123C7F";
 const char* PASSWORD = "01CE109E73";
 
-int BT_On=8;
-int AT_Mode=9;
+int BT_On=24;
+int AT_Mode=23;
 
 int fuenteCMD;
 
@@ -45,7 +45,7 @@ String wifiCmd2Snd="",wifiString2Snd="";
 
 String msg;
 String RadioWriteTemp;                  			// Array a transmitir
-RF24 radio(9,53);									// Creamos un objeto radio del tipo RF24
+RF24 radio(A9,53);									// Creamos un objeto radio del tipo RF24
 
 #include "wifiCmds.h"
 #include "BTUCCmds.h"
@@ -60,6 +60,8 @@ void setup()
 	Serial.println("enviando EEPROM a SRAM");		//Inicializando memoria
 	disp.reeprom();
 	Serial.println("EEPROM ---> SRAM");
+	
+	pinMode(A9, OUTPUT);	
 	
 	btSetup();										//Inicializando Bluetooth
 	nrf24Setup();									//Inicializando NRF24
@@ -77,7 +79,6 @@ void setup()
 //#define wifiWrite(A) wifi.send(mux_id, (uint8_t*) A, sizeof(A) - 1);
 void loop()
 {
-
 	blinkOff.init();
 	blinkOn.init();
 	wifiSta.init();	
