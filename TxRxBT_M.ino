@@ -14,10 +14,9 @@
 #include <ESP8266.h>
 //#define wifiWrite(A) wifi.send(mux_id, (uint8_t*) A, sizeof(A) - 1);
 
+#include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
-#include <SPI.h>
-
 
 const char* SSID = "INFINITUM123C7F";
 const char* PASSWORD = "01CE109E73";

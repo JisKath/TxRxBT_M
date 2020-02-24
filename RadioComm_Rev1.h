@@ -5,6 +5,15 @@ uint64_t selectPipe(String _pipe)
   return(ix); 
 }
 
+uint64_t selectPipeL(String _pipe)
+{
+
+  uint64_t ix= _pipe[0] + _pipe[1]*0x100 + _pipe[2]*0x10000 + _pipe[3]*0x1000000 + _pipe[4]*0x100000000;
+
+  return(ix);
+
+}
+
 String RadioRead(void)
 {
   String Mensaje;
@@ -117,7 +126,7 @@ void Duplex2Radio(int Enable)
 		}
 		
 		radio.startListening();  	//Volvemos a la escucha
-		radio.openReadingPipe(1,selectPipe(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion)+1); //Cambiar el canal de la escucha por otro i.e. "CANAL" --> "LANAC"
+		radio.openReadingPipe(1,selectPipeL(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion)); //Cambiar el canal de la escucha por otro i.e. "CANAL" --> "LANAC"
 		
 		//radio.stopListening();
 		cmdOk=0;
@@ -162,6 +171,3 @@ void Escuchando(void){
 	}
 	
 }
-
-
-
