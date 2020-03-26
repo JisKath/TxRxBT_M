@@ -1,15 +1,18 @@
 
-uint64_t selectPipe(String _pipe)
+String selectPipe(String _pipe)
 {
-  uint64_t ix= _pipe[4] + _pipe[3]*0x100 + _pipe[2]*0x10000 + _pipe[1]*0x1000000 + _pipe[0]*0x100000000;
+  //uint64_t ix= _pipe[4] + _pipe[3]*0x100 + _pipe[2]*0x10000 + _pipe[1]*0x1000000 + _pipe[0]*0x100000000;
+  String ix="0";
+  ix=ix + _pipe.substring(0,2);
   return(ix); 
 }
 
-uint64_t selectPipeL(String _pipe)
+String selectPipeL(String _pipe)
 {
 
-  uint64_t ix= _pipe[0] + _pipe[1]*0x100 + _pipe[2]*0x10000 + _pipe[3]*0x1000000 + _pipe[4]*0x100000000;
-
+  //uint64_t ix= _pipe[0] + _pipe[1]*0x100 + _pipe[2]*0x10000 + _pipe[3]*0x1000000 + _pipe[4]*0x100000000;
+  String ix="0";
+  ix=ix + _pipe.substring(3,5);
   return(ix);
 
 }
@@ -20,20 +23,8 @@ String RadioRead(void)
   Mensaje.reserve(16);
   Mensaje.remove(0, 15);
   
-  bool a=false;
-  int z=0;
-  
-  char MSG[16];
-  
-  while(!a)
-	a=radio.read( MSG,15);
-
-
-  for (int i = 0; i < 15; i++){
-    Mensaje.concat(MSG[i]);
-    if(MSG[i]==';')
-      i=15;
-  }
+  while(RF.available())
+	Mensaje=RF.readString();
 
   return (Mensaje);
 }
@@ -41,17 +32,12 @@ String RadioRead(void)
 bool RadioWrite(String theMessage)
 {
   bool a=false;
-      char charToSend[16];
       
-  theMessage.concat(';');
+  //theMessage.concat(';');
+  HC11.sends(theMessage);
   
-  int messageSize = theMessage.length();
+  a=true;
   
-  for (int i = 0; i < messageSize; i++) 
-  {
-    charToSend[i] = theMessage.charAt(i);
-  }
-  a=radio.write(charToSend,messageSize);  
   return (a);
 }
 
@@ -59,9 +45,15 @@ void Duplex2Radio(int Enable)
 {
 	if(Enable==1)
 	{
-	    radio.stopListening();    // Paramos la escucha para poder hablar
+	    //radio.stopListening();    // Paramos la escucha para poder hablar
 		
-		radio.openWritingPipe(selectPipe(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion));
+		//radio.openWritingPipe(selectPipe(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion));
+
+		HC11.ATmode(true);
+		HC11.Addr(selectPipe(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion));
+		HC11.Canal(selectPipeL(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion));
+		HC11.ATmode(false);
+		
 		delay(10);
 		
 		if(fuenteCMD==1){
@@ -125,8 +117,9 @@ void Duplex2Radio(int Enable)
 				wifiEnviarln("Falla al transmitir");
 		}
 		
-		radio.startListening();  	//Volvemos a la escucha
-		radio.openReadingPipe(1,selectPipeL(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion)); //Cambiar el canal de la escucha por otro i.e. "CANAL" --> "LANAC"
+		//radio.startListening();  	//Volvemos a la escucha
+		//radio.openReadingPipe(1,selectPipeL(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion)); //Cambiar el canal de la escucha por otro i.e. "CANAL" --> "LANAC"
+	
 		
 		//radio.stopListening();
 		cmdOk=0;
@@ -138,7 +131,7 @@ void Duplex2Radio(int Enable)
 
 void Escuchando(void){
 	
-	if(radio.available()){
+	if(RF.available()){
 	
 		if(fuenteCMD==1){
 			Serial.print("Resp del Dispositivo: ");
@@ -158,10 +151,10 @@ void Escuchando(void){
 		}
 		
 		if(fuenteCMD==1)
-			Serial.print(";");
+			Serial.println(";");
 		
 		if(fuenteCMD==2)
-			Serial1.print(";");
+			Serial1.println(";");
 		
 		if(fuenteCMD==3)
 			wifiEnviarln(";");

@@ -75,7 +75,7 @@ void btSetup (void)
 	
 }
 
-void nrf24Setup(void)
+/*void nrf24Setup(void)
 {
 	pinMode(53, OUTPUT);
 	radio.begin();
@@ -89,4 +89,36 @@ void nrf24Setup(void)
 	radio.openWritingPipe(selectPipe(disp.Dispositivo[0].direccion));          // Abrir para escribir
 	
 
+}*/
+
+void HC11Setup(void){
+	//Serial.begin(9600);								// Serial port to computer
+	HC11.cmdPin(50);								//int HC11cmdMode = 53
+	HC11.ATmode(true);
+
+	Serial.println("Configurando modulo HC11");
+
+	Serial.println(HC11.Baudios("38400"));
+	Serial.println(RF.readString());
+
+	Serial.println(HC11.Addr("001"));
+	Serial.println(RF.readString());
+
+	Serial.println(HC11.Canal("015"));
+	Serial.println(RF.readString());
+
+	Serial.println(HC11.Potencia("8"));
+	Serial.println(RF.readString());
+
+	Serial.println(HC11.Info());
+	Serial.println(RF.readString());
+
+	Serial.println(HC11.Version());
+	Serial.println(RF.readString());
+
+	Serial.println(HC11.Function("3"));
+	Serial.println(RF.readString());
+
+	HC11.ATmode(false);
+	
 }

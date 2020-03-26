@@ -14,9 +14,11 @@
 #include <ESP8266.h>
 //#define wifiWrite(A) wifi.send(mux_id, (uint8_t*) A, sizeof(A) - 1);
 
-#include <SPI.h>
-#include <nRF24L01.h>
-#include <RF24.h>
+//#include <SPI.h>
+//#include <nRF24L01.h>
+//#include <RF24.h>
+#include <HC11RF.h>
+
 
 const char* SSID = "INFINITUM123C7F";
 const char* PASSWORD = "01CE109E73";
@@ -43,8 +45,13 @@ String wifiCmd2Snd="",wifiString2Snd="";
    uint8_t mux_id;
 
 String msg;
-String RadioWriteTemp;                  			// Array a transmitir
-RF24 radio(A9,53);									// Creamos un objeto radio del tipo RF24
+String RadioWriteTemp; 
+
+                 			// Array a transmitir
+//RF24 radio(A9,53);									// Creamos un objeto radio del tipo RF24
+
+SoftwareSerial RF(52,A9); 							// HC-11 TX Pin, HC-11 RX Pin
+HC11RF HC11(RF,38400);								// HC-11 TX Pin, HC-11 RX Pin
 
 #include "wifiCmds.h"
 #include "BTUCCmds.h"
@@ -55,15 +62,17 @@ RF24 radio(A9,53);									// Creamos un objeto radio del tipo RF24
 void setup()
 {
 	Serial.begin(115200);   						// Iniciar  el puerto serie
+	pinMode(13, OUTPUT);
 	
 	Serial.println("enviando EEPROM a SRAM");		//Inicializando memoria
 	disp.reeprom();
 	Serial.println("EEPROM ---> SRAM");
 	
-	pinMode(A9, OUTPUT);	
+	//pinMode(A9, OUTPUT);	
 	
-	btSetup();										//Inicializando Bluetooth
-	nrf24Setup();									//Inicializando NRF24
+	//btSetup();										//Inicializando Bluetooth
+	//nrf24Setup();									//Inicializando NRF24
+	HC11Setup();
 	wifiSetup();									//Inicializando ESP-01
 	
 	blinkOn.TON.pre=100;							//Inicilizando Timers
