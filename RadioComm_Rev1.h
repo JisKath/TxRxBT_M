@@ -25,6 +25,7 @@ String RadioRead(void)
   
   while(RF.available())
 	Mensaje=RF.readString();
+  //Mensaje.remove(Mensaje.indexOf(';'),Mensaje.length()-Mensaje.indexOf(';'));
 
   return (Mensaje);
 }
@@ -97,13 +98,13 @@ void Duplex2Radio(int Enable)
 	
 		if (ok){
 			if(fuenteCMD==1)
-				Serial.println("ok...");
+				Serial.println("Envio satisfactorio");
 
 			if(fuenteCMD==2)
-				Serial1.println("ok...");
+				Serial1.println("Envio satisfactorio");
 			
 			if(fuenteCMD==3)
-				wifiEnviarln("ok...");
+				wifiEnviarln("Envio satisfactorio");
 		}
 		
 		else{
@@ -136,16 +137,19 @@ void Escuchando(void){
 		if(fuenteCMD==1){
 			Serial.print("Resp del Dispositivo: ");
 			Serial.println(RadioRead());
+			Serial.println("ok...");
 		}
 
 		if(fuenteCMD==2){
 			Serial1.print("Resp del Dispositivo: ");
 			Serial1.println(RadioRead());
+			Serial1.println("ok...");
 		}
 			
 		if(fuenteCMD==3){
 			wifiEnviar("Resp del Dispositivo: ");
 			wifiEnviarln(RadioRead());
+			wifiEnviarln("ok...");
 			//wifiEnviarln("hola");
 			//fuenteCMD=0;
 		}

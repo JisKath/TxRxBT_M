@@ -120,5 +120,6 @@ void HC11Setup(void){
 	Serial.println(RF.readString());
 
 	HC11.ATmode(false);
+	RF.setTimeout(20);
 	
 }
