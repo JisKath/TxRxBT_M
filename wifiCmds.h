@@ -4,7 +4,6 @@
 void wifiRecibir(void)
 {
 	uint8_t buffer[128] = { 0 };
-	//   uint8_t mux_id;
 
 	uint32_t len =wifi.recv(&mux_id, buffer, sizeof(buffer), 100);
 	if (len > 0) {
@@ -34,7 +33,6 @@ void wifiEnviarln(String data)
 {
 	data.concat("\r\n");
 	wifi.sends(mux_id, data, data.length());
-  //wifi.sends(mux_id, "Hola", 4);
 }
 
 void wifiEnviar(String data)

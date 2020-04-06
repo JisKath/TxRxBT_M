@@ -1,7 +1,6 @@
 
 String selectPipe(String _pipe)
 {
-  //uint64_t ix= _pipe[4] + _pipe[3]*0x100 + _pipe[2]*0x10000 + _pipe[1]*0x1000000 + _pipe[0]*0x100000000;
   String ix="0";
   ix=ix + _pipe.substring(0,2);
   return(ix); 
@@ -9,8 +8,6 @@ String selectPipe(String _pipe)
 
 String selectPipeL(String _pipe)
 {
-
-  //uint64_t ix= _pipe[0] + _pipe[1]*0x100 + _pipe[2]*0x10000 + _pipe[3]*0x1000000 + _pipe[4]*0x100000000;
   String ix="0";
   ix=ix + _pipe.substring(3,5);
   return(ix);
@@ -25,7 +22,6 @@ String RadioRead(void)
   
   while(RF.available())
 	Mensaje=RF.readString();
-  //Mensaje.remove(Mensaje.indexOf(';'),Mensaje.length()-Mensaje.indexOf(';'));
 
   return (Mensaje);
 }
@@ -33,10 +29,8 @@ String RadioRead(void)
 bool RadioWrite(String theMessage)
 {
   bool a=false;
-      
-  //theMessage.concat(';');
+
   HC11.sends(theMessage);
-  
   a=true;
   
   return (a);
@@ -46,10 +40,6 @@ void Duplex2Radio(int Enable)
 {
 	if(Enable==1)
 	{
-	    //radio.stopListening();    // Paramos la escucha para poder hablar
-		
-		//radio.openWritingPipe(selectPipe(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion));
-
 		HC11.ATmode(true);
 		HC11.Addr(selectPipe(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion));
 		HC11.Canal(selectPipeL(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion));
@@ -76,7 +66,7 @@ void Duplex2Radio(int Enable)
 		int TXattempts=0;
 		while(!ok && TXattempts<3)
 		{
-			ok = RadioWrite(RadioWriteTemp);			//Agregar condición if cuando Ok es true, para no duplicar acción
+			ok = RadioWrite(RadioWriteTemp);
 			++TXattempts;
 			delay(100);
 		}
@@ -118,11 +108,6 @@ void Duplex2Radio(int Enable)
 				wifiEnviarln("Falla al transmitir");
 		}
 		
-		//radio.startListening();  	//Volvemos a la escucha
-		//radio.openReadingPipe(1,selectPipeL(disp.Dispositivo[RadioWriteTemp.substring(6).toInt()].direccion)); //Cambiar el canal de la escucha por otro i.e. "CANAL" --> "LANAC"
-	
-		
-		//radio.stopListening();
 		cmdOk=0;
 		TXradioEn=0;
 		
@@ -150,8 +135,6 @@ void Escuchando(void){
 			wifiEnviar("Resp del Dispositivo: ");
 			wifiEnviarln(RadioRead());
 			wifiEnviarln("ok...");
-			//wifiEnviarln("hola");
-			//fuenteCMD=0;
 		}
 		
 		if(fuenteCMD==1)

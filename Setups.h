@@ -55,8 +55,8 @@ void btSetup (void)
 {
 	delay(5000);
 	pinMode(13, OUTPUT);
-	pinMode(BT_On, OUTPUT);			// configurar pin para alimentacion modulo BT 
-	pinMode(AT_Mode, OUTPUT);		// configurar pin para habilitacion de modo AT 2
+	pinMode(BT_On, OUTPUT);										// configurar pin para alimentacion modulo BT 
+	pinMode(AT_Mode, OUTPUT);									// configurar pin para habilitacion de modo AT 2
 
 	digitalWrite(AT_Mode, LOW);
 	digitalWrite(BT_On, LOW);
@@ -71,11 +71,11 @@ void btSetup (void)
 	digitalWrite(AT_Mode, LOW);
 	
 	Serial.println("Esperando comandos AT:");	
-	Serial1.begin(115200);				// Iniciar el puerto serie BT
+	Serial1.begin(115200);									// Iniciar el puerto serie BT
 	
 }
 
-/*void nrf24Setup(void)
+void nrf24Setup(void)
 {
 	pinMode(53, OUTPUT);
 	radio.begin();
@@ -84,16 +84,15 @@ void btSetup (void)
 	radio.setDataRate(RF24_250KBPS);
 	radio.setChannel(30);
 	radio.setPALevel(3);
-	radio.setRetries(15,15);  	// Maximos reintentos 
-	radio.setPayloadSize(16);   // Reduce el payload de 32 si tienes problemas
+	radio.setRetries(15,15);  								// Maximos reintentos 
+	radio.setPayloadSize(16);   							// Reduce el payload de 32 si tienes problemas
 	radio.openWritingPipe(selectPipe(disp.Dispositivo[0].direccion));          // Abrir para escribir
 	
 
-}*/
+}
 
 void HC11Setup(void){
-	//Serial.begin(9600);								// Serial port to computer
-	HC11.cmdPin(50);								//int HC11cmdMode = 53
+	HC11.cmdPin(50);										//int HC11cmdMode = 50
 	HC11.ATmode(true);
 
 	Serial.println("Configurando modulo HC11");
@@ -121,5 +120,6 @@ void HC11Setup(void){
 
 	HC11.ATmode(false);
 	RF.setTimeout(20);
+	Serial.println("Finalizando COnfiguracion...");
 	
 }
