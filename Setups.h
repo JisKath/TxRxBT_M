@@ -1,4 +1,13 @@
-
+void inicializarDev(void)
+{
+	Serial.begin(115200);   						// Iniciar  el puerto serie
+	pinMode(13, OUTPUT);
+	
+	Serial.println("enviando EEPROM a SRAM");		//Inicializando memoria
+	disp.reeprom();
+  escenario.rSeeprom();
+	Serial.println("EEPROM ---> SRAM");
+}
 
 void wifiSetup(void)
 {
@@ -75,22 +84,6 @@ void btSetup (void)
 	
 }
 
-void nrf24Setup(void)
-{
-	pinMode(53, OUTPUT);
-	radio.begin();
-	Serial.println("Levantando el modulo de radio NRF");
-
-	radio.setDataRate(RF24_250KBPS);
-	radio.setChannel(30);
-	radio.setPALevel(3);
-	radio.setRetries(15,15);  								// Maximos reintentos 
-	radio.setPayloadSize(16);   							// Reduce el payload de 32 si tienes problemas
-	radio.openWritingPipe(selectPipe(disp.Dispositivo[0].direccion));          // Abrir para escribir
-	
-
-}
-
 void HC11Setup(void){
 	HC11.cmdPin(50);										//int HC11cmdMode = 50
 	HC11.ATmode(true);
@@ -120,6 +113,16 @@ void HC11Setup(void){
 
 	HC11.ATmode(false);
 	RF.setTimeout(20);
-	Serial.println("Finalizando COnfiguracion...");
+	Serial.println("Finalizando Configuracion de HC-11...\n");
 	
+}
+
+void inicializarTimers(void)
+{
+	blinkOn.TON.pre=100;							//Inicilizando Timers
+	blinkOff.TON.pre=100;
+	wifiSta.TON.pre=60000;
+	blinkOn.TON.en=0;
+	blinkOff.TON.en=0;
+	wifiSta.TON.en=0;
 }

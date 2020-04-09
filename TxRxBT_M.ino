@@ -5,6 +5,8 @@
 
 #include <SpecialFunctions.h>
 #include <BT_Net.h>
+#include "Escenas.h" 
+
 #include <SoftwareSerial.h>
 #include <EEPROM.h>
 
@@ -31,6 +33,7 @@ String TempucSerial;
 
 SpecialFn blinkOn, blinkOff, wifiSta;
 BT_Network disp;
+Escenas escenario;
 
 ESP8266 wifi(Serial2);								// Creamos un objeto radio del tipo wifi
 String wifiData="";
@@ -51,22 +54,12 @@ HC11RF HC11(RF,38400);								// HC-11 TX Pin, HC-11 RX Pin
 
 void setup()
 {
-	Serial.begin(115200);   						// Iniciar  el puerto serie
-	pinMode(13, OUTPUT);
-	
-	Serial.println("enviando EEPROM a SRAM");		//Inicializando memoria
-	disp.reeprom();
-	Serial.println("EEPROM ---> SRAM");
+	inicializarDev();
 
 	HC11Setup();									//Inicializando HC-11
 	wifiSetup();									//Inicializando ESP-01
 	
-	blinkOn.TON.pre=100;							//Inicilizando Timers
-	blinkOff.TON.pre=100;
-	wifiSta.TON.pre=60000;
-	blinkOn.TON.en=0;
-	blinkOff.TON.en=0;
-	wifiSta.TON.en=0;
+	inicializarTimers();
   	}
 
 void loop()
