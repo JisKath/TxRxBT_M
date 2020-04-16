@@ -14,9 +14,14 @@
 #include <ESP8266.h>
 #include <HC11RF.h>
 
+#include <GFRTC.h>
 
 const char* SSID = "INFINITUM123C7F";
 const char* PASSWORD = "01CE109E73";
+
+bool skipSetFecha=true;
+// structure to hold data from RTC
+struct timelib_tm datetime;
 
 int BT_On=24;
 int AT_Mode=23;
@@ -58,6 +63,7 @@ void setup()
 
 	HC11Setup();									//Inicializando HC-11
 	wifiSetup();									//Inicializando ESP-01
+	rtcSetup();										//Inicializando Modulo RTC
 	
 	inicializarTimers();
   	}
@@ -94,6 +100,7 @@ void loop()
 		blinkOff.TON.en=1;
 		if (blinkOff.TON.dn)
 			{
+			GFRTC.read(datetime);
 			blinkOn.TON.en=0;
 			blinkOff.TON.en=0;
 			}

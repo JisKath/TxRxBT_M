@@ -126,3 +126,84 @@ void inicializarTimers(void)
 	blinkOff.TON.en=0;
 	wifiSta.TON.en=0;
 }
+
+void print2digits(int number) {
+  if (number >= 0 && number < 10) {
+    Serial.write('0');
+  }
+  Serial.print(number);
+}
+
+void	rtcSetup(void)										//Inicializando Modulo RTC
+{
+	// prepare the RTC class, this also calls Wire.begin()
+	GFRTC.begin(true);
+	
+	  // check if we can communicate with RTC
+	if (GFRTC.isPresent()) {
+		Serial.println("RTC connected and ready.");
+	} else {
+		Serial.println("Check RTC connections and try again.");
+	for (;;);
+	}
+	
+	// get date and time
+	if (GFRTC.read(datetime)) {
+		// read ok, print data from RTC
+		Serial.print(F("OK, Time = "));
+		print2digits(datetime.tm_hour);
+		Serial.write(':');
+		print2digits(datetime.tm_min);
+		Serial.write(':');
+		print2digits(datetime.tm_sec);
+		Serial.print(F(", Date (D/M/Y) = "));
+		Serial.print(datetime.tm_mday);
+		Serial.write('/');
+		Serial.print(datetime.tm_mon);
+		Serial.write('/');
+		Serial.print(timelib_tm2y2k(datetime.tm_year));
+		Serial.println();
+		
+		if(timelib_tm2y2k(datetime.tm_year)<18)
+		{
+			skipSetFecha=false;
+		}
+		
+	} else {
+		// error reading the RTC
+		Serial.println(F("Cannot read RTC."));
+	}
+	
+	if(!skipSetFecha){
+		// use the datetime structure to group date time information
+		// SET THE DESIRED TIME / DATE HERE
+		datetime.tm_hour = 12;
+		datetime.tm_min = 0;
+		datetime.tm_sec = 0;
+		datetime.tm_wday = 3;
+		datetime.tm_mday = 14;
+		datetime.tm_mon = 4;
+		datetime.tm_year =timelib_y2k2tm(20);
+		
+		// write data on struct to RTC registers
+		if (GFRTC.write(datetime)) {
+			// write ok, print data sent to RTC
+			Serial.print(F("Set date / time to: "));
+			print2digits(datetime.tm_hour);
+			Serial.write(':');
+			print2digits(datetime.tm_min);
+			Serial.write(':');
+			print2digits(datetime.tm_sec);
+			Serial.print(F(", Date (D/M/Y) = "));
+			Serial.print(datetime.tm_mday);
+			Serial.write('/');
+			Serial.print(datetime.tm_mon);
+			Serial.write('/');
+			Serial.print(timelib_tm2y2k(datetime.tm_year));
+			Serial.println();
+		} else {
+			// error reading the RTC
+			Serial.println(F("Cannot write RTC."));
+		}
+	}	
+}

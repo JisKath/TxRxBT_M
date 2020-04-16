@@ -824,6 +824,23 @@ if(wifiData.substring(0,1) == "_")
 		cmdOk=1;
 	}
 
+	if(wifiData.substring(0,6) == "_rSev[")
+	{
+		int _Escn=wifiData.substring(6).toInt();
+		String _Temp="";
+		
+		_Temp=String(_Escn) + " = " + escenario.Ambientes[_Escn].nombre + ":\n";
+		_Temp=_Temp + "t0 = " + escenario.Ambientes[_Escn].t0 + ":\n";
+		_Temp=_Temp + "t1 = " + escenario.Ambientes[_Escn].t1 + ":\n";
+		_Temp=_Temp + "Dias = " + escenario.Ambientes[_Escn].repetir + ":\n";
+		_Temp=_Temp + "TBD = " + escenario.Ambientes[_Escn].repetirAlt + ":\n";
+		_Temp=_Temp + "Status = " + escenario.Ambientes[_Escn].habilitar + ":\n";
+		wifiEnviarln(_Temp);
+
+		wifiEnviarln("_rSev OK;");
+		cmdOk=1;
+	}
+
 	if(wifiData.substring(0,9) == "_rSeeprom")
 	{
 		wifiEnviarln("enviando EEPROM de Escenas --> SRAM de Escenas");
@@ -848,12 +865,136 @@ if(wifiData.substring(0,1) == "_")
 		cmdOk=1;
 	}
 	
+
+
+	if(wifiData.substring(0,7) == "_wdate[")										//[WkD/MonthD/M/Y]
+	{
+		
+		byte _dash1=wifiData.indexOf('/')+1;
+		byte _dash2=wifiData.indexOf('/',_dash1)+1;
+		byte _dash3=wifiData.indexOf('/',_dash2)+1;
+		
+		datetime.tm_wday = wifiData.substring(7).toInt();
+		datetime.tm_mday = wifiData.substring(_dash1).toInt();
+		datetime.tm_mon = wifiData.substring(_dash2).toInt();
+		datetime.tm_year =timelib_y2k2tm(wifiData.substring(_dash3).toInt());
+
+		if (GFRTC.write(datetime)) {
+			
+			String _tempDate="";
+			// write ok, print data sent to RTC
+			_tempDate="Set date / time to: ";
+			_tempDate=_tempDate + String(datetime.tm_hour);
+			_tempDate=_tempDate + ':';
+			_tempDate=_tempDate + String(datetime.tm_min);
+			_tempDate=_tempDate + ':';
+			_tempDate=_tempDate + String(datetime.tm_sec);
+			_tempDate=_tempDate + ", Date (D/M/Y) = ";
+			_tempDate=_tempDate + String(datetime.tm_mday);
+			_tempDate=_tempDate + '/';
+			_tempDate=_tempDate + String(datetime.tm_mon);
+			_tempDate=_tempDate + '/';
+			_tempDate=_tempDate + String(timelib_tm2y2k(datetime.tm_year));
+			_tempDate=_tempDate + "\n";
+			wifiEnviarln(_tempDate);
+			
+		} else {
+			// error reading the RTC
+			Serial.println(F("Cannot write RTC."));
+		}
+		
+		wifiEnviarln("_wDate OK;");
+		cmdOk=1;
+	}
+	
+	if(wifiData.substring(0,6) == "_rdate")										//(WkD/MonthD/M/Y)
+	{
+
+	// get date and time
+	if (GFRTC.read(datetime)) {
+		// read ok, print data from RTC
+		String _tempDate="";
+		_tempDate="[" + String(datetime.tm_wday) + "/";
+		_tempDate=_tempDate + String(datetime.tm_mday) + "/";
+		_tempDate=_tempDate + String(datetime.tm_mon) + "/";
+		_tempDate=_tempDate + String(timelib_tm2y2k(datetime.tm_year)) + "]";
+		
+		wifiEnviarln(_tempDate);
+		
+	} else {
+		// error reading the RTC
+		wifiEnviarln("Cannot read RTC.");
+	}
+		
+		wifiEnviarln("_rDate OK;");
+		cmdOk=1;
+	}	
+
+	if(wifiData.substring(0,7) == "_wtime[")										//[hh:mm:ss]
+	{
+		
+		byte _dash1=wifiData.indexOf(':')+1;
+		byte _dash2=wifiData.indexOf(':',_dash1)+1;
+				
+		datetime.tm_hour = wifiData.substring(7).toInt();
+		datetime.tm_min = wifiData.substring(_dash1).toInt();
+		datetime.tm_sec = wifiData.substring(_dash2).toInt();
+		
+		if (GFRTC.write(datetime)) {
+			
+			String _tempDate="";
+			// write ok, print data sent to RTC
+			_tempDate="Set date / time to: ";
+			_tempDate=_tempDate + String(datetime.tm_hour);
+			_tempDate=_tempDate + ':';
+			_tempDate=_tempDate + String(datetime.tm_min);
+			_tempDate=_tempDate + ':';
+			_tempDate=_tempDate + String(datetime.tm_sec);
+			_tempDate=_tempDate + ", Date (D/M/Y) = ";
+			_tempDate=_tempDate + String(datetime.tm_mday);
+			_tempDate=_tempDate + '/';
+			_tempDate=_tempDate + String(datetime.tm_mon);
+			_tempDate=_tempDate + '/';
+			_tempDate=_tempDate + String(timelib_tm2y2k(datetime.tm_year));
+			_tempDate=_tempDate + "\n";
+			wifiEnviarln(_tempDate);
+			
+		} else {
+			// error reading the RTC
+			Serial.println(F("Cannot write RTC."));
+		}
+		
+		wifiEnviarln("_wtime OK;");
+		cmdOk=1;
+	}
+
+	if(wifiData.substring(0,6) == "_rtime")										//[hh:mm:ss]
+	{
+
+	// get date and time
+	if (GFRTC.read(datetime)) {
+		// read ok, print data from RTC
+		String _tempDate="";
+		_tempDate="[" + String(datetime.tm_hour) + ":";
+		_tempDate=_tempDate + String(datetime.tm_min) + ":";
+		_tempDate=_tempDate + String(datetime.tm_sec) + "]";
+		
+		wifiEnviarln(_tempDate);
+		
+	} else {
+		// error reading the RTC
+		wifiEnviarln("Cannot read RTC.");
+	}
+		
+		wifiEnviarln("_rtime OK;");
+		cmdOk=1;
+	}
+
 	if (cmdOk==0)
 		wifiEnviarln("Comando no identificado;");
 
 
 }
-
 else
 	Serial.println(wifiData);
 }
