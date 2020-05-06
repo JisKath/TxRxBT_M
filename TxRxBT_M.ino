@@ -32,6 +32,9 @@ int fuenteCMD;
 int cmdOk = 0;
 int	TXradioEn = 0, RXradioEn = 0;
 
+int scn=0, _Indice=0, _Indice1=0, intentoss=0,EtapaActivando=0,EtapaDesactivando=0;						//Variables para eventos
+bool EtapaBarrido=false, EtapaActivarD=false, EtapaValidarD=false, EtapaDesactivarD=false ;
+
 String ucSerial;
 String btSerial;
 String TempucSerial;
