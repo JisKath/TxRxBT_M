@@ -28,6 +28,8 @@ int AT_Mode = 23;
 
 int fuenteCMD;
 
+bool rcvn_Ok=true, firstScan=true;
+int sweepDev=0, sweepInt=0;
 
 int cmdOk = 0;
 int	TXradioEn = 0, RXradioEn = 0;
@@ -38,6 +40,7 @@ bool EtapaBarrido=false, EtapaActivarD=false, EtapaValidarD=false, EtapaDesactiv
 String ucSerial;
 String btSerial;
 String TempucSerial;
+String ReadD;
 String internalData, internalResult;
 
 SpecialFn blinkOn, blinkOff, wifiSta;
@@ -117,6 +120,11 @@ void loop()
 
   Duplex2Radio(TXradioEn);
   Escuchando();
+  
+  if(firstScan)
+  {
+    ActualizarEdos();
+  }
 
   if (fuenteCMD == 13)
   {

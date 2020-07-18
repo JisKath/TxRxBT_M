@@ -86,6 +86,24 @@ if(ucSerial.substring(0,1) == "_")
 		Serial.println("_rall OK;");
 		cmdOk=1;
 	}
+	
+	if(ucSerial.substring(0,6) == "_rdall")
+	{
+		String temp=" ";
+		for (int i = 0 ; i < 16 ; i++)
+		{
+			temp=(String(i));
+			temp=temp+" ";
+			temp=temp+(String(disp.Dispositivo[i].nombre));
+			temp=temp+", ";
+			temp=temp+(String(disp.Dispositivo[i].tipo));
+			temp=temp+" :";
+			Serial.println(temp);
+		}
+   
+		Serial.println("_rdall OK;");
+		cmdOk=1;
+	}
 
 	if(ucSerial.substring(0,8) == "_weeprom")
 	{
@@ -110,6 +128,14 @@ if(ucSerial.substring(0,1) == "_")
 		disp.reeprom();
 		Serial.println("EEPROM ---> SRAM enviado;");
 		cmdOk=1;
+	}
+	
+	if(ucSerial.substring(0,6) == "_clrd[") //_clrd[1]
+	{
+		RadioWriteTemp=ucSerial;
+
+		cmdOk=1;
+		TXradioEn=1;
 	}
 	
 	if(ucSerial.substring(0,6) == "_sndn[") //sndn[0,1]
@@ -721,7 +747,7 @@ if(wifiData.substring(0,1) == "_")
 	
 	if(wifiData.substring(0,5) == "_rall")
 	{
-  String temp=" ";
+		String temp=" ";
 		for (int i = 0 ; i < 16 ; i++)
 		{
 			temp=(String(i));
@@ -734,6 +760,24 @@ if(wifiData.substring(0,1) == "_")
 		}
    
 		wifiEnviarln("_rall OK;");
+		cmdOk=1;
+	}
+	
+	if(wifiData.substring(0,6) == "_rdall")
+	{
+		String temp=" ";
+		for (int i = 0 ; i < 16 ; i++)
+		{
+			temp=(String(i));
+			temp=temp+" ";
+			temp=temp+(String(disp.Dispositivo[i].nombre));
+			temp=temp+", ";
+			temp=temp+(String(disp.Dispositivo[i].tipo));
+			temp=temp+" :";
+			wifiEnviarln(temp);
+		}
+   
+		wifiEnviarln("_rdall OK;");
 		cmdOk=1;
 	}
 
@@ -760,6 +804,14 @@ if(wifiData.substring(0,1) == "_")
 		disp.reeprom();
 		wifiEnviarln("EEPROM ---> SRAM enviado;");
 		cmdOk=1;
+	}
+	
+		if(wifiData.substring(0,6) == "_clrd[") //_clrd[1]
+	{
+		RadioWriteTemp=wifiData;
+
+		cmdOk=1;
+		TXradioEn=1;
 	}
 	
 	if(wifiData.substring(0,6) == "_sndn[") //sndn[0,1]
@@ -1252,6 +1304,24 @@ if(internalData.substring(0,1) == "_")
 		}
    
 		Serial.println("_rall OK;");
+		cmdOk=1;
+	}
+	
+	if(internalData.substring(0,6) == "_rdall")
+	{
+		String temp=" ";
+		for (int i = 0 ; i < 16 ; i++)
+		{
+			temp=(String(i));
+			temp=temp+" ";
+			temp=temp+(String(disp.Dispositivo[i].nombre));
+			temp=temp+", ";
+			temp=temp+(String(disp.Dispositivo[i].tipo));
+			temp=temp+" :";
+			Serial.println(temp);
+		}
+   
+		Serial.println("_rdall OK;");
 		cmdOk=1;
 	}
 

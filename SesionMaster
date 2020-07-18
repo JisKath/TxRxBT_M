@@ -1,8 +1,8 @@
 <NotepadPlus>
     <Session activeView="0">
-        <mainView activeIndex="3">
-            <File firstVisibleLine="0" xOffset="0" scrollWidth="1800" startPos="304" endPos="304" selMode="0" offset="0" wrapCount="1" lang="Arduino" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\TxRxBT_M.ino" backupFilePath="" originalFileLastModifTimestamp="487406564" originalFileLastModifTimestampHigh="30807930" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="-2108655062" mapWrapIndentMode="-1" mapIsWrap="no" />
-            <File firstVisibleLine="0" xOffset="0" scrollWidth="1800" startPos="5058" endPos="5058" selMode="0" offset="0" wrapCount="1" lang="Arduino" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\Setups.h" backupFilePath="" originalFileLastModifTimestamp="1951762469" originalFileLastModifTimestampHigh="30806907" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="223369258" mapWrapIndentMode="-1" mapIsWrap="no">
+        <mainView activeIndex="0">
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1152" startPos="304" endPos="304" selMode="0" offset="0" wrapCount="1" lang="Arduino" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\TxRxBT_M.ino" backupFilePath="" originalFileLastModifTimestamp="-337960613" originalFileLastModifTimestampHigh="30811082" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="-2108655062" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1080" startPos="5058" endPos="5058" selMode="0" offset="0" wrapCount="1" lang="Arduino" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\Setups.h" backupFilePath="" originalFileLastModifTimestamp="1951762469" originalFileLastModifTimestampHigh="30806907" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="223369258" mapWrapIndentMode="-1" mapIsWrap="no">
                 <Fold line="1" />
                 <Fold line="12" />
                 <Fold line="21" />
@@ -29,7 +29,9 @@
                 <Fold line="188" />
                 <Fold line="203" />
             </File>
-            <File firstVisibleLine="259" xOffset="0" scrollWidth="1800" startPos="7338" endPos="7338" selMode="0" offset="0" wrapCount="1" lang="Arduino" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\BTUCCmds.h" backupFilePath="" originalFileLastModifTimestamp="-74098660" originalFileLastModifTimestampHigh="30809723" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="-2108655062" mapWrapIndentMode="-1" mapIsWrap="no">
+            <File firstVisibleLine="1290" xOffset="0" scrollWidth="1080" startPos="35999" endPos="35999" selMode="0" offset="0" wrapCount="1" lang="Arduino" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\BTUCCmds.h" backupFilePath="" originalFileLastModifTimestamp="-74098660" originalFileLastModifTimestampHigh="30809723" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="-2108655062" mapWrapIndentMode="-1" mapIsWrap="no">
+                <Fold line="2" />
+                <Fold line="4" />
                 <Fold line="9" />
                 <Fold line="16" />
                 <Fold line="23" />
@@ -85,6 +87,7 @@
                 <Fold line="475" />
                 <Fold line="488" />
                 <Fold line="496" />
+                <Fold line="498" />
                 <Fold line="503" />
                 <Fold line="510" />
                 <Fold line="517" />
@@ -158,7 +161,6 @@
                 <Fold line="1114" />
                 <Fold line="1123" />
                 <Fold line="1133" />
-                <Fold line="1170" />
                 <Fold line="1177" />
                 <Fold line="1184" />
                 <Fold line="1191" />
@@ -196,6 +198,7 @@
                 <Fold line="1454" />
                 <Fold line="1469" />
                 <Fold line="1475" />
+                <Fold line="1489" />
                 <Fold line="1506" />
                 <Fold line="1514" />
                 <Fold line="1523" />
@@ -212,12 +215,13 @@
                 <Fold line="1636" />
                 <Fold line="1645" />
             </File>
-            <File firstVisibleLine="0" xOffset="0" scrollWidth="1800" startPos="159" endPos="159" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\eventosEscenas.h" backupFilePath="" originalFileLastModifTimestamp="-1767268022" originalFileLastModifTimestampHigh="30807930" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="7274606" mapWrapIndentMode="-1" mapIsWrap="no" />
-            <File firstVisibleLine="0" xOffset="0" scrollWidth="1800" startPos="89" endPos="89" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\wifiCmds.h" backupFilePath="" originalFileLastModifTimestamp="1515540835" originalFileLastModifTimestampHigh="30804311" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="223369258" mapWrapIndentMode="-1" mapIsWrap="no" />
-            <File firstVisibleLine="126" xOffset="0" scrollWidth="1314" startPos="3201" endPos="3201" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\RadioComm_Rev1.h" backupFilePath="" originalFileLastModifTimestamp="545634665" originalFileLastModifTimestampHigh="30807929" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="223369258" mapWrapIndentMode="-1" mapIsWrap="no" />
-            <File firstVisibleLine="1" xOffset="0" scrollWidth="810" startPos="335" endPos="335" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\Escenas.cpp" backupFilePath="" originalFileLastModifTimestamp="527331525" originalFileLastModifTimestampHigh="30805288" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="7274606" mapWrapIndentMode="-1" mapIsWrap="no" />
-            <File firstVisibleLine="0" xOffset="0" scrollWidth="1314" startPos="376" endPos="376" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\Escenas.h" backupFilePath="" originalFileLastModifTimestamp="527441465" originalFileLastModifTimestampHigh="30805288" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="7274606" mapWrapIndentMode="-1" mapIsWrap="no" />
-            <File firstVisibleLine="0" xOffset="0" scrollWidth="855" startPos="202" endPos="202" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\Program Files (x86)\Arduino\libraries\BT_Net\BT_Net.h" backupFilePath="" originalFileLastModifTimestamp="-657494128" originalFileLastModifTimestampHigh="30805249" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="7274606" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="190" xOffset="0" scrollWidth="1080" startPos="5416" endPos="5416" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\eventosEscenas.h" backupFilePath="" originalFileLastModifTimestamp="-1979749359" originalFileLastModifTimestampHigh="30811090" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="7274606" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1080" startPos="89" endPos="89" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\wifiCmds.h" backupFilePath="" originalFileLastModifTimestamp="1515540835" originalFileLastModifTimestampHigh="30804311" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="223369258" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="110" xOffset="0" scrollWidth="1080" startPos="1308" endPos="1323" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\RadioComm_Rev1.h" backupFilePath="" originalFileLastModifTimestamp="545634665" originalFileLastModifTimestampHigh="30807929" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="223369258" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="1" xOffset="0" scrollWidth="1080" startPos="335" endPos="335" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\Escenas.cpp" backupFilePath="" originalFileLastModifTimestamp="527331525" originalFileLastModifTimestampHigh="30805288" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="7274606" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1080" startPos="376" endPos="376" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\Escenas.h" backupFilePath="" originalFileLastModifTimestamp="527441465" originalFileLastModifTimestampHigh="30805288" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="7274606" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1080" startPos="202" endPos="202" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\Program Files (x86)\Arduino\libraries\BT_Net\BT_Net.h" backupFilePath="" originalFileLastModifTimestamp="-657494128" originalFileLastModifTimestampHigh="30805249" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="7274606" mapWrapIndentMode="-1" mapIsWrap="no" />
+            <File firstVisibleLine="0" xOffset="0" scrollWidth="1080" startPos="175" endPos="175" selMode="0" offset="0" wrapCount="1" lang="C++" encoding="-1" userReadOnly="no" filename="C:\MMI\GitsVCS\DomoHaus\TxRxBT_M\Temporal.h" backupFilePath="" originalFileLastModifTimestamp="1561271216" originalFileLastModifTimestampHigh="30810719" mapFirstVisibleDisplayLine="-1" mapFirstVisibleDocLine="-1" mapLastVisibleDocLine="-1" mapNbLine="-1" mapHigherPos="-1" mapWidth="-1" mapHeight="-1" mapKByteInDoc="-2108655062" mapWrapIndentMode="-1" mapIsWrap="no" />
         </mainView>
         <subView activeIndex="0" />
     </Session>

@@ -207,3 +207,4 @@ void	rtcSetup(void)										//Inicializando Modulo RTC
 		}
 	}	
 }
+
